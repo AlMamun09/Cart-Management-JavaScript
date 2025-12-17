@@ -7,6 +7,40 @@ import { renderCart } from './ui/renderCart.js';
 const productListEl = document.getElementById('product-list');
 const cartItemsEl = document.getElementById('cart-items');
 const cartTotalEl = document.getElementById('cart-total');
+const toastEl = document.getElementById('toast');
+
+let toastTimer;
+const showToast = (message, variant = 'info') => {
+  if (!toastEl) return alert(message); // Fallback if toast container is missing
+
+  clearTimeout(toastTimer);
+
+  const variants = {
+    error: {
+      wrapper: 'bg-rose-50 border border-rose-200 text-rose-800',
+      dot: 'bg-rose-500'
+    },
+    info: {
+      wrapper: 'bg-blue-50 border border-blue-200 text-blue-800',
+      dot: 'bg-blue-500'
+    }
+  };
+
+  const { wrapper, dot } = variants[variant] || variants.info;
+
+  toastEl.innerHTML = `
+    <div role="alert" class="flex items-start gap-3 rounded-xl p-4 shadow-lg ${wrapper}">
+      <span class="mt-1 inline-block h-2.5 w-2.5 rounded-full ${dot}"></span>
+      <p class="text-sm font-medium leading-snug">${message}</p>
+    </div>
+  `;
+
+  toastEl.classList.remove('hidden');
+
+  toastTimer = setTimeout(() => {
+    toastEl.classList.add('hidden');
+  }, 2800);
+};
 
 // State for Products (we keep this local to main)
 let products = [];
@@ -41,7 +75,7 @@ productListEl.addEventListener('click', (event) => {
       const existingItem = currentCart.find(item => item.id === id);
       
       if (existingItem && existingItem.quantity >= product.stock) {
-        alert("Sorry, we don't have enough stock!");
+        showToast("Sorry, we don't have enough stock!", 'error');
         return;
       }
 

@@ -4,31 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopping Cart - React Readiness</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "ui-sans-serif", "system-ui", "-apple-system", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"],
+            },
+          }
+        }
+      }
+    </script>
 </head>
-<body class="bg-gray-100 p-8">
-    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-        
-        <div class="md:col-span-2">
-            <h1 class="text-3xl font-bold mb-6">Products</h1>
-            <div id="product-list" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                </div>
+<body class="min-h-screen bg-slate-50 text-slate-800 font-sans">
+    <header class="bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 border-b border-slate-200">
+        <div class="max-w-6xl mx-auto px-4 md:px-6 lg:px-8 py-6">
+            <h1 class="text-3xl font-semibold tracking-tight">Shopping Cart</h1>
         </div>
+    </header>
 
-        <div class="bg-white p-6 rounded-lg shadow-lg h-fit">
-            <h2 class="text-2xl font-bold mb-4">Your Cart</h2>
+    <div id="toast" class="hidden fixed right-4 top-4 z-50 w-full max-w-xs transform transition duration-300 ease-out"></div>
+
+    <main class="max-w-6xl mx-auto px-4 md:px-6 lg:px-8 py-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <section class="md:col-span-2">
+          <h2 class="text-xl font-semibold mb-4">Products</h2>
+          <div id="product-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </section>
+
+        <div class="md:col-span-1">
+          <h2 class="text-xl font-semibold mb-4">Your Cart</h2>
+          <aside class="bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 border border-slate-200 p-6 rounded-xl shadow-sm h-fit md:sticky md:top-8">
             <div id="cart-items" class="space-y-4 mb-4">
-                <p class="text-gray-500">Your cart is empty.</p>
+              <p class="text-slate-500">Your cart is empty.</p>
             </div>
-            <div class="border-t pt-4">
-                <div class="flex justify-between font-bold text-xl">
-                    <span>Total:</span>
-                    <span id="cart-total">$0.00</span>
-                </div>
+            <div class="border-t border-slate-200 pt-4">
+              <div class="flex items-center justify-between text-base font-semibold">
+                <span>Total</span>
+                <span id="cart-total">$0.00</span>
+              </div>
             </div>
+          </aside>
         </div>
-
-    </div>
+    </main>
     
     <script type="module" src="./src/main.js"></script>
 </body>
